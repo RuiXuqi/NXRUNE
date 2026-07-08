@@ -142,6 +142,12 @@ importGroup.QueueFindReplace("gml_GlobalScript_scr_draw_background_ps4", @"    i
     var draw_y = off_y + (yy * scale);
     draw_background_stretched(bg, draw_x, draw_y, draw_w, draw_h);");
 
+// scr_draw_screen_border
+
+importGroup.QueueFindReplace("gml_GlobalScript_scr_draw_screen_border", "if (border_id == \"Dynamic\" || border_id == \"ダイナミック\")", "if (border_id == \"Dynamic\" || border_id == \"ダイナミック\" || border_id == \"动态\")");
+
+importGroup.QueueFindReplace("gml_GlobalScript_scr_draw_screen_border", "else if (border_id == \"Simple\" || border_id == \"シンプル\")", "else if (border_id == \"Simple\" || border_id == \"シンプル\" || border_id == \"简单\")");
+
 // DEVICE_MENU
 
 importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Step_0", @"if (global.is_console)
@@ -150,9 +156,13 @@ importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Step_0", @"if (global.is_co
                         {
                             global.screen_border_id = ini_read_string(""BORDER"", ""TYPE"", ""Dynamic"");");
 
+importGroup.QueueRegexFindReplace("gml_Object_DEVICE_MENU_Step_0", @"var _disable_border = global\.screen_border_id == ""None"" \|\| global\.screen_border_id == ""なし"";", @"var _disable_border = global.screen_border_id == ""None"" || global.screen_border_id == ""なし"" || global.screen_border_id == ""无"";");
+
 importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Alarm_0", "if (global.is_console)", "if (true)");
 
 // obj_darkcontroller
+
+importGroup.QueueRegexFindReplace("gml_Object_obj_darkcontroller_Create_0", @"border_text = \(global\.lang == ""en""\) \? ""Border"" : ""フレーム"";\s*border_options = \(global\.lang == ""en""\) \? \[""Dynamic"", ""Simple"", ""None""\] : \[""ダイナミック"", ""シンプル"", ""なし""\];[\s\S]*?selected_border = 0;", @"border_text = ""边框""; border_options = [""动态"", ""简单"", ""无""]; selected_border = 0;");
 
 importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Draw_0", "draw_sprite(spr_heart, 0, _heartXPos, yy + 160 + (global.submenucoord[30] * 35));", "draw_sprite(spr_heart, 0, _heartXPos, yy + 140 + (global.submenucoord[30] * 35));");
 
@@ -215,6 +225,8 @@ importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Step_0", "if (global
 importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Step_0", "if (global.submenucoord[30] > 6)", "if (global.submenucoord[30] > 7)");
 
 importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Step_0", "global.submenucoord[30] = 6;", "global.submenucoord[30] = 7;");
+
+importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Step_0", "if (_border == \"None\" || _border == \"なし\")", "if (_border == \"None\" || _border == \"なし\" || _border == \"无\")");
 
 importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Step_0", @"                if (global.is_console)
                 {
