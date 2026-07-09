@@ -188,6 +188,8 @@ else
 
 importGroup.QueueFindReplace("gml_Object_obj_border_controller_Draw_77", "draw_surface_ext(application_surface, xx, yy, global.window_scale, global.window_scale, 0, c_white, 1);", "draw_surface_stretched(application_surface, xx, yy, ww - (2 * xx), wh - (2 * yy));");
 
+importGroup.QueueFindReplace("gml_Object_obj_border_controller_Draw_77", "draw_sprite_ext(obj_time.screenshot, 0, xx, yy, global.window_scale, global.window_scale, 0, c_white, 1);", "draw_sprite_stretched(obj_time.screenshot, 0, xx, yy, ww - (2 * xx), wh - (2 * yy));");
+
 
 // scr_draw_background_ps4
 
@@ -221,6 +223,8 @@ importGroup.QueueFindReplace("gml_GlobalScript_scr_draw_background_ps4", @"    i
     var draw_x = off_x + (xx * scale);
     var draw_y = off_y + (yy * scale);
     draw_background_stretched(bg, draw_x, draw_y, draw_w, draw_h);");
+
+importGroup.QueueFindReplace("gml_Object_obj_time_Step_1", "if (global.is_console && os_is_paused())", "if (os_is_paused())");
 
 // obj_darkcontroller
 
@@ -346,7 +350,9 @@ importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_darkcontroller_Step_0",
                         cancelnoise = 1;
                     }
                 }",
-                @"if (global.submenucoord[30] == 3)
+                @"if (true)
+                {
+                    if (global.submenucoord[30] == 3)
                     {
                         with (obj_time)
                             fullscreen_toggle = 1;
@@ -384,7 +390,8 @@ importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_darkcontroller_Step_0",
                     {
                         m_quit = 1;
                         cancelnoise = 1;
-                    }");
+                    }
+                }");
 
 // DEVICE_MENU
 
@@ -399,7 +406,17 @@ importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Step_0", @"if (!global.is_c
                             ini_close();
                         }");
 
-importGroup.QueueRegexFindReplace("gml_Object_DEVICE_MENU_Step_0", @"var _disable_border = global\.screen_border_id == ""None"" \|\| global\.screen_border_id == ""なし"";", @"var _disable_border = global.screen_border_id == ""None"" || global.screen_border_id == ""なし"" || global.screen_border_id == ""无"";");
+importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Step_0", @"                        if (global.is_console)
+                        {
+                            global.screen_border_id = ini_read_string(""BORDER"", ""TYPE"", ""Dynamic"");
+                            var _disable_border = global.screen_border_id == ""None"" || global.screen_border_id == ""なし"";
+                            scr_enable_screen_border(!_disable_border);
+                        }", @"                        if (true)
+                        {
+                            global.screen_border_id = ini_read_string(""BORDER"", ""TYPE"", ""Dynamic"");
+                            var _disable_border = global.screen_border_id == ""None"" || global.screen_border_id == ""なし"" || global.screen_border_id == ""无"";
+                            scr_enable_screen_border(!_disable_border);
+                        }");
 
 importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Create_0", @"if (global.is_console)
     global.chapter_return = -1;", "global.chapter_return = -1;");
