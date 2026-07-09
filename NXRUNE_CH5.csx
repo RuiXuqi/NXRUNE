@@ -184,6 +184,8 @@ else
 
 importGroup.QueueFindReplace("gml_Object_obj_border_controller_Draw_77", "draw_surface_ext(application_surface, xx, yy, global.window_scale, global.window_scale, 0, c_white, 1);", "draw_surface_stretched(application_surface, xx, yy, ww - (2 * xx), wh - (2 * yy));");
 
+importGroup.QueueFindReplace("gml_Object_obj_border_controller_Draw_77", "draw_sprite_ext(obj_time.screenshot, 0, xx, yy, global.window_scale, global.window_scale, 0, c_white, 1);", "draw_sprite_stretched(obj_time.screenshot, 0, xx, yy, ww - (2 * xx), wh - (2 * yy));");
+
 // scr_draw_background_ps4
 
 importGroup.QueueFindReplace("gml_GlobalScript_scr_draw_background_ps4", @"    if (os_type == os_ps4 || scr_is_switch_os() || os_type == os_ps5)
@@ -236,9 +238,15 @@ importGroup.QueueFindReplace("gml_GlobalScript_scr_draw_background_ps4", @"    i
     draw_set_color(c_bak);
     draw_set_alpha(a_bak);");
 
+importGroup.QueueFindReplace("gml_Object_obj_time_Step_1", "if (global.is_console && os_is_paused())", "if (os_is_paused())");
+
 // obj_darkcontroller
 
 importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Draw_0", "draw_sprite(spr_heart, 0, _heartXPos, yy + 160 + (global.submenucoord[30] * 35));", "draw_sprite(spr_heart, 0, _heartXPos, yy + 140 + (global.submenucoord[30] * 35));");
+
+importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Draw_0", @"if (global.lang == ""ja"" && global.is_console)", @"if (global.lang == ""ja"")");
+
+importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Draw_0", @"var _selectXPos = (global.lang == ""ja"" && global.is_console) ? (xx + 385) : (xx + 430);", @"var _selectXPos = (global.lang == ""ja"") ? (xx + 385) : (xx + 430);");
 
 importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_darkcontroller_Draw_0", @"draw_text(_xPos, yy + 150, string_hash_to_newline(stringsetloc(""Master Volume"", ""obj_darkcontroller_slash_Draw_0_gml_86_0"")));
         draw_text(_selectXPos, yy + 150, string_hash_to_newline(audvol));
@@ -338,7 +346,8 @@ importGroup.QueueTrimmedLinesFindReplace("gml_Object_obj_darkcontroller_Step_0",
                         cancelnoise = 1;
                     }
                 }",
-                @"if (true) {
+                @"if (true)
+                {
                     if (global.submenucoord[30] == 3)
                         {
                             with (obj_time)
@@ -391,6 +400,11 @@ importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Step_0", @"if (!global.is_c
                         }");
 
 importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Alarm_0", "if (global.is_console)", "if (true)");
+
+// scr_save
+
+importGroup.QueueFindReplace("gml_GlobalScript_scr_save", @"    if (global.is_console)
+        ini_write_string(""BORDER"", ""TYPE"", global.screen_border_id);", @"    ini_write_string(""BORDER"", ""TYPE"", global.screen_border_id);");
 
 // obj_chapter_continue
 

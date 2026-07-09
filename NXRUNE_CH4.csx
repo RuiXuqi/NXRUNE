@@ -329,7 +329,9 @@ importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Step_0", @"         
                         cancelnoise = 1;
                     }
                 }",
-                @"if (global.submenucoord[30] == 3)
+                @"if (true)
+                {
+                    if (global.submenucoord[30] == 3)
                     {
                         with (obj_time)
                             fullscreen_toggle = 1;
@@ -364,7 +366,8 @@ importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Step_0", @"         
                     {
                         m_quit = 1;
                         cancelnoise = 1;
-                    }");
+                    }
+                }");
 
 // DEVICE_MENU
 
@@ -377,6 +380,18 @@ importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Step_0", @"if (!global.is_c
                             var _disable_border = global.screen_border_id == ""None"" || global.screen_border_id == ""なし"";
                             scr_enable_screen_border(!_disable_border);
                             ini_close();
+                        }");
+
+importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Step_0", @"                        if (global.is_console)
+                        {
+                            global.screen_border_id = ini_read_string(""BORDER"", ""TYPE"", ""Dynamic"");
+                            var _disable_border = global.screen_border_id == ""None"" || global.screen_border_id == ""なし"";
+                            scr_enable_screen_border(!_disable_border);
+                        }", @"                        if (true)
+                        {
+                            global.screen_border_id = ini_read_string(""BORDER"", ""TYPE"", ""Dynamic"");
+                            var _disable_border = global.screen_border_id == ""None"" || global.screen_border_id == ""なし"";
+                            scr_enable_screen_border(!_disable_border);
                         }");
 
 importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Alarm_0", "if (global.is_console)", "if (true)");

@@ -37,6 +37,12 @@ importGroup.QueueFindReplace("gml_Object_obj_init_pc_Draw_77", "window_set_size(
 
 importGroup.QueueAppend("gml_Object_obj_init_pc_Draw_77", @"var ww = window_get_width();
 var wh = window_get_height();
+var sw = surface_get_width(application_surface);
+var sh = surface_get_height(application_surface);
+var scale_w = ww / sw;
+var scale_h = wh / sh;
+global.window_scale = floor(min(scale_w, scale_h));
+
 var border_w = 1920;
 var border_h = 1080;
 
@@ -59,6 +65,8 @@ else
     yy = (60 * (ww / 1920)) + (abs(wh - border_h) / 2);
 }
 
+global.window_xofs = xx;
+global.window_yofs = yy;
 texture_set_interpolation(false);
 draw_enable_alphablend(false);
 draw_surface_stretched(application_surface, xx, yy, ww - (2 * xx), wh - (2 * yy));

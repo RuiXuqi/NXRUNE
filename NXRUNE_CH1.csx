@@ -106,9 +106,13 @@ else
 
 importGroup.QueueFindReplace("gml_Object_obj_time_Draw_77", "draw_surface_ext(application_surface, xx, yy, global.window_scale, global.window_scale, 0, c_white, 1);", "draw_surface_stretched(application_surface, xx, yy, ww - (2 * xx), wh - (2 * yy));");
 
+importGroup.QueueFindReplace("gml_Object_obj_time_Draw_77", "draw_sprite_ext(screenshot, 0, xx, yy, global.window_scale, global.window_scale, 0, c_white, 1);", "draw_sprite_stretched(screenshot, 0, xx, yy, ww - (2 * xx), wh - (2 * yy));");
+
 importGroup.QueueFindReplace("gml_Object_obj_time_Draw_75", "window_set_size(640 * window_size_multiplier, 480 * window_size_multiplier);", "window_set_size(640 * window_size_multiplier, 360 * window_size_multiplier);");
 
 importGroup.QueueFindReplace("gml_Object_obj_time_Draw_64", "draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, 4, 4, 2, 2, 0, c_white, quit_timer / 15);", " draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, 40, 30, 2, 2, 0, c_white, quit_timer / 15);");
+
+importGroup.QueueFindReplace("gml_Object_obj_time_Step_1", "if (global.is_console && os_is_paused())", "if (os_is_paused())");
 
 // scr_draw_background_ps4
 
@@ -150,11 +154,18 @@ importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Step_0", @"if (global.is_co
                         {
                             global.screen_border_id = ini_read_string(""BORDER"", ""TYPE"", ""Dynamic"");");
 
+importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Step_0", @"                            ini_write_real(""SHOULDERLB_REASSIGN"", ""SHOULDERLB_REASSIGN"", obj_gamecontroller.gamepad_shoulderlb_reassign);
+                            ossafe_ini_close();", @"                            ini_write_real(""SHOULDERLB_REASSIGN"", ""SHOULDERLB_REASSIGN"", obj_gamecontroller.gamepad_shoulderlb_reassign);
+                            ini_write_string(""BORDER"", ""TYPE"", global.screen_border_id);
+                            ossafe_ini_close();");
+
 importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Alarm_0", "if (global.is_console)", "if (true)");
 
 // obj_darkcontroller
 
 importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Draw_0", "draw_sprite(spr_heart, 0, _heartXPos, yy + 160 + (global.submenucoord[30] * 35));", "draw_sprite(spr_heart, 0, _heartXPos, yy + 140 + (global.submenucoord[30] * 35));");
+
+importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Draw_0", @"var _selectXPos = (global.lang == ""ja"" && global.is_console) ? (xx + 385) : (xx + 430);", @"var _selectXPos = (global.lang == ""ja"") ? (xx + 385) : (xx + 430);");
 
 importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Draw_0", @"        draw_text(_xPos, yy + 150, string_hash_to_newline(scr_84_get_lang_string(""obj_darkcontroller_slash_Draw_0_gml_86_0"")));
         draw_text(_selectXPos, yy + 150, string_hash_to_newline(audvol));
@@ -268,7 +279,9 @@ importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Step_0", @"         
                     if (global.submenucoord[30] == 6)
                         m_quit = 1;
                 }",
-                @"if (global.submenucoord[30] == 3)
+                @"if (true)
+                {
+                    if (global.submenucoord[30] == 3)
                     {
                         with (obj_time)
                             fullscreen_toggle = 1;
@@ -300,7 +313,8 @@ importGroup.QueueFindReplace("gml_Object_obj_darkcontroller_Step_0", @"         
                         global.submenu = 34;
                     
                     if (global.submenucoord[30] == 7)
-                        m_quit = 1;");
+                        m_quit = 1;
+                }");
 
 // obj_chapter_continue
 
