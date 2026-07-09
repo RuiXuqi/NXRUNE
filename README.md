@@ -1,3 +1,8 @@
+# NXRUNE-CN
+Modified version of [IruzzArcana/NXRUNE](https://github.com/IruzzArcana/NXRUNE) to provide Chinese patch support.
+
+[border_dw_word.png](/Borders/chapter3/border_dw_word.png) was photoshoped from [gm3dr/DeltaruneChinese](https://github.com/gm3dr/DeltaruneChinese/blob/main/workspace/ch3/imports/atlas/texture-0.png), licensed **CC BY-NC-SA 4.0**.
+
 # NXRUNE
 A collection of scripts to enable DELTARUNE borders and more[^1] on PC.
 [^1]: see [here](https://github.com/IruzzArcana/NXRUNE/blob/f0b0c670f65ff69dde5143863c3b5eb2f4851d1e/NXRUNE_CH2.csx#L75) and [here](https://github.com/IruzzArcana/NXRUNE/blob/f0b0c670f65ff69dde5143863c3b5eb2f4851d1e/NXRUNE_CH2.csx#L387)
