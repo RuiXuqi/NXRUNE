@@ -86,6 +86,10 @@ UndertaleModLib.Compiler.CodeImportGroup importGroup = new(Data, null, decompSet
     ThrowOnNoOpFindReplace = true
 };
 
+// gml_Object_obj_screen_loading
+
+importGroup.QueueFindReplace("gml_Object_obj_screen_loading_Create_0", @"""LOADING\nCHAPTER\nSELECT""", @"""正在加载\n章节\n选择器""");
+
 // obj_initializer2
 
 importGroup.QueueFindReplace("gml_Object_obj_initializer2_Create_0", @"if (global.is_console)
