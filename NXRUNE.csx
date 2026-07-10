@@ -78,6 +78,18 @@ texture_set_interpolation(false);
 
 importGroup.QueueFindReplace("gml_Object_obj_screen_transition_Step_0", "if (global.is_console)", "    if (true)");
 
+// gml_Object_obj_screen_loading
+
+importGroup.QueueFindReplace("gml_Object_obj_screen_loading_Create_0", @"get_font = function()
+{
+    return (global.lang == ""en"") ? 4 : 9;
+};", @"get_font = function()
+{
+    return 2;
+};");
+
+importGroup.QueueFindReplace("gml_Object_obj_screen_loading_Draw_0", "draw_text_transformed(room_width / 2, (room_height / 2) - 16, _initialize_text, 1, 1, 0);", "draw_text_transformed(room_width / 2, (room_height / 2) - 16, _initialize_text, 2, 2, 0);");
+
 importGroup.Import();
 
 ScriptMessage("All done! :3");
