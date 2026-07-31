@@ -78,6 +78,12 @@ UndertaleModLib.Compiler.CodeImportGroup importGroup = new(Data, null, decompSet
     ThrowOnNoOpFindReplace = true
 };
 
+// gml_Object_obj_screen_loading
+
+importGroup.QueueFindReplace("gml_Object_obj_screen_loading_Create_0", @"""LOADING\nCHAPTER\nSELECT""", @"""正在加载\n章节\n选择器""");
+
+importGroup.QueueFindReplace("gml_Object_obj_screen_loading_Create_0", @"var _text = ""INITIALIZING\nCHAPTER "" + string(arg0);", @"var _text = ""正在加载\n第"" + string(arg0) + ""章"";");
+
 // obj_initializer2
 
 importGroup.QueueFindReplace("gml_Object_obj_initializer2_Create_0", @"if (global.is_console)
@@ -207,6 +213,18 @@ importGroup.QueuePrepend("gml_Object_obj_time_Draw_64", "display_set_gui_maximiz
 importGroup.QueueFindReplace("gml_Object_obj_time_Draw_64", "draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, 4, 4, 2, 2, 0, c_white, quit_timer / 15);", "draw_sprite_ext(scr_84_get_sprite(\"spr_quitmessage\"), quit_timer / 7, obj_border_controller.application_surface_rects.xx + 4, obj_border_controller.application_surface_rects.yy + 4, 5 * obj_border_controller.application_surface_rects.border_scale, 5 * obj_border_controller.application_surface_rects.border_scale, 0, c_white, quit_timer / 15);");
 
 importGroup.QueueFindReplace("gml_Object_obj_time_Draw_75", "if (global.is_console)", "if (true)");
+
+// obj_border_controller
+
+importGroup.QueueFindReplace("gml_Object_obj_border_controller_Draw_77", "if (border_id == \"Dynamic\" || border_id == \"ダイナミック\")", "if (border_id == \"Dynamic\" || border_id == \"ダイナミック\" || border_id == \"动态\")");
+
+importGroup.QueueFindReplace("gml_Object_obj_border_controller_Draw_77", "if (border_id == \"Simple\" || border_id == \"シンプル\")", "if (border_id == \"Simple\" || border_id == \"シンプル\" || border_id == \"简单\")");
+
+importGroup.QueueFindReplace("gml_Object_obj_border_controller_Create_0", "return global.screen_border_id == \"Simple\" || global.screen_border_id == \"シンプル\";", "return global.screen_border_id == \"Simple\" || global.screen_border_id == \"シンプル\" || global.screen_border_id == \"简单\";");
+
+importGroup.QueueFindReplace("gml_Object_obj_border_controller_Create_0", "if (border_id == \"Dynamic\" || border_id == \"ダイナミック\")", "if (border_id == \"Dynamic\" || border_id == \"ダイナミック\" || border_id == \"动态\")");
+
+importGroup.QueueFindReplace("gml_Object_obj_border_controller_Create_0", "else if (border_id == \"Simple\" || border_id == \"シンプル\")", "else if (border_id == \"Simple\" || border_id == \"シンプル\" || border_id == \"简单\")");
 
 // scr_draw_background_ps4
 
@@ -410,7 +428,7 @@ importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Step_0", @"if (!global.is_c
                         }", @"if (!global.is_console)
                         {
                             global.screen_border_id = ini_read_string(""BORDER"", ""TYPE"", ""Dynamic"");
-                            var _disable_border = global.screen_border_id == ""None"" || global.screen_border_id == ""なし"";
+                            var _disable_border = global.screen_border_id == ""None"" || global.screen_border_id == ""なし"" || global.screen_border_id == ""无"";
                             scr_enable_screen_border(!_disable_border);
                             ini_close();
                         }");
@@ -423,7 +441,7 @@ importGroup.QueueFindReplace("gml_Object_DEVICE_MENU_Step_0", @"                
                         }", @"                        if (true)
                         {
                             global.screen_border_id = ini_read_string(""BORDER"", ""TYPE"", ""Dynamic"");
-                            var _disable_border = global.screen_border_id == ""None"" || global.screen_border_id == ""なし"";
+                            var _disable_border = global.screen_border_id == ""None"" || global.screen_border_id == ""なし"" || global.screen_border_id == ""无"";
                             scr_enable_screen_border(!_disable_border);
                         }");
 
