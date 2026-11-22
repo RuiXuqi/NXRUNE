@@ -92,4 +92,6 @@ importGroup.QueueFindReplace("gml_Object_obj_screen_loading_Draw_0", "draw_text_
 
 importGroup.Import();
 
+Data.GameObjects.ByName("obj_init_pc").Persistent = true;
+
 ScriptMessage("All done! :3");
